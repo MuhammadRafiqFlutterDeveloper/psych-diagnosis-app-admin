@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:psych_diagnosis_admin/views/accounts/screen_psych_sign_in.dart';
-import 'package:psych_diagnosis_admin/views/screens/screen_dashboard.dart';
+import 'models/get_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,12 +23,15 @@ displayMessage(String Message) {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Splash Screen',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(),
+      home: ChangeNotifierProvider(
+        create: (_) => UserProvider(),
+        child: MyHomePage(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -83,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           builder: (BuildContext context) =>
               // FirebaseAuth.instance.currentUser != null
               //     ? ScreenDashboard()
-                  ScreenPsychLogIn(),
+              // ScreenPsychCompleteProfile(uid: '',)
+              ScreenPsychLogIn(),
         ),
       ),
     );

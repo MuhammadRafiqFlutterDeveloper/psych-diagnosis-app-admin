@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +95,8 @@ class _UserHelpState extends State<UserHelp> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('help')
-            .where('doctorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .where('doctorId',
+                isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasError) {
@@ -118,17 +118,15 @@ class _UserHelpState extends State<UserHelp> {
 
           var userId = snapshot.data.docs[0]['userId'];
           return StreamBuilder(
-            stream: (name != "" && name != null)
+            stream: (name != "" && name != "")
                 ? FirebaseFirestore.instance
                     .collection('users')
                     .where("firstName", isGreaterThanOrEqualTo: name)
-                    .where('uid',
-                        isEqualTo: userId)
+                    .where('uid', isEqualTo: userId)
                     .snapshots()
                 : FirebaseFirestore.instance
                     .collection('users')
-                    .where('uid',
-                        isEqualTo: userId)
+                    .where('uid', isEqualTo: userId)
                     .snapshots(),
             builder: (context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

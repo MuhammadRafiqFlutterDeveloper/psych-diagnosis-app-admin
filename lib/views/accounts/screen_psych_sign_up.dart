@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:psych_diagnosis_admin/views/accounts/screen_pshch_verification.dart';
 import 'package:psych_diagnosis_admin/views/accounts/screen_psych_sign_in.dart';
-import '../../main.dart';
+import '../../controllers/credential_controller.dart';
 import '../constants/colors.dart';
 
 class ScreenPsychSignUp extends StatefulWidget {
@@ -12,6 +12,8 @@ class ScreenPsychSignUp extends StatefulWidget {
 }
 
 class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
+
+  final RegistrationController _controller = Get.put(RegistrationController());
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   bool obscureText = true;
   bool _obscureText = true;
@@ -78,7 +80,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                   ),
                   child: TextFormField(
                     cursorColor: buttonColor,
-                    controller: firstNameController,
+                    controller: _controller.firstName,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -111,7 +113,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                   ),
                   child: TextFormField(
                     cursorColor: buttonColor,
-                    controller: lastNameController,
+                    controller: _controller.lastname,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -147,7 +149,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                   ),
                   child: TextFormField(
                     cursorColor: buttonColor,
-                    controller: emailController,
+                    controller: _controller.emailController,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -180,7 +182,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                   ),
                   child: TextFormField(
                     cursorColor: buttonColor,
-                    controller: passwordController,
+                    controller: _controller.passwordController,
                     obscureText: obscureText,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -227,7 +229,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                   ),
                   child: TextFormField(
                     cursorColor: buttonColor,
-                    controller: confirmPasswordController,
+                    controller: _controller.confirm,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -267,37 +269,7 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
                 height: 43,
                 width: MediaQuery.of(context).size.width / 1.30,
                 child: MaterialButton(
-                  onPressed: () {
-                    if (firstNameController.text.isEmpty) {
-                      displayMessage("First Name Required");
-                    } else if (lastNameController.text == '') {
-                      displayMessage("LastName Required");
-                    } else if (emailController.text.isEmpty) {
-                      displayMessage("Email required");
-                    } else if (passwordController.text.isEmpty) {
-                      displayMessage("Password Required");
-                    } else if (confirmPasswordController.text.isEmpty) {
-                      displayMessage('ConfirmPassword Required');
-                    } else if (passwordController.text !=
-                        confirmPasswordController.text) {
-                      displayMessage("Your Password doesn't Match");
-                    } else if (confirmPasswordController.text.length < 6 ||
-                        passwordController.text.length < 6) {
-                      displayMessage(
-                          'password and confirmPassword should be AtLeast 6 Character');
-                    } else {
-                      openScreen(
-                        context,
-                        ScreenPsychVerification(
-                          fName: firstNameController.text,
-                          lName: lastNameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          confirmPassword: confirmPasswordController.text,
-                        ),
-                      );
-                    }
-                  },
+                  onPressed: ()=>_controller.registerUser(),
                   color: buttonColor,
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -351,12 +323,46 @@ class _ScreenPsychSignUpState extends State<ScreenPsychSignUp> {
       ),
     );
   }
-
   bool isLoading = false;
-
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var confirmPasswordController = TextEditingController();
-  var firstNameController = TextEditingController();
-  var lastNameController = TextEditingController();
 }
+
+
+
+// bool isLoading = false;
+//
+// var emailController = TextEditingController();
+// var passwordController = TextEditingController();
+// var confirmPasswordController = TextEditingController();
+// var firstNameController = TextEditingController();
+// var lastNameController = TextEditingController();
+// onPressed: () {
+//   if (firstNameController.text.isEmpty) {
+//     displayMessage("First Name Required");
+//   } else if (lastNameController.text == '') {
+//     displayMessage("LastName Required");
+//   } else if (emailController.text.isEmpty) {
+//     displayMessage("Email required");
+//   } else if (passwordController.text.isEmpty) {
+//     displayMessage("Password Required");
+//   } else if (confirmPasswordController.text.isEmpty) {
+//     displayMessage('ConfirmPassword Required');
+//   } else if (passwordController.text !=
+//       confirmPasswordController.text) {
+//     displayMessage("Your Password doesn't Match");
+//   } else if (confirmPasswordController.text.length < 6 ||
+//       passwordController.text.length < 6) {
+//     displayMessage(
+//         'password and confirmPassword should be AtLeast 6 Character');
+//   } else {
+//     openScreen(
+//       context,
+//       ScreenPsychVerification(
+//         fName: firstNameController.text,
+//         lName: lastNameController.text,
+//         email: emailController.text,
+//         password: passwordController.text,
+//         confirmPassword: confirmPasswordController.text,
+//       ),
+//     );
+//   }
+// },

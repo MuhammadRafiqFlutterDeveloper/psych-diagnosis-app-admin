@@ -120,7 +120,7 @@ class _ScreenUsersState extends State<ScreenUsers> {
 
           var userId = snapshot.data.docs[0]['userId'];
           return StreamBuilder<QuerySnapshot>(
-            stream: (name != "" && name != null)
+            stream: (name != "" && name != "")
                 ? FirebaseFirestore.instance
                     .collection('users')
                     .where('uid', isEqualTo: userId)

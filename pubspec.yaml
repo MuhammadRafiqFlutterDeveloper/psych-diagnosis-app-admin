@@ -44,6 +44,9 @@ dependencies:
   flutter_inapp_purchase:
   intl:
   uuid:
+  get:
+  provider:
+  mailer:
   pinput:
   auto_size_text:
   google_fonts:
