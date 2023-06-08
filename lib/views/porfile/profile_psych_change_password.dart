@@ -27,7 +27,7 @@ class _ProfilePsychChangePasswordState
       return;
     }
     AuthCredential credential = EmailAuthProvider.credential(
-      email: user.email ?? '',
+      email: user.email ?? "",
       password: oldPassword.text,
     );
     try {

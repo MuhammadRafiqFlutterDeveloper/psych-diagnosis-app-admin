@@ -170,7 +170,7 @@ class _ScreenUsersState extends State<ScreenUsers> {
                           backgroundImage: NetworkImage(data['profile']),
                         ),
                         title: Text(
-                          data['firstName']+' ' + data['lastName'],
+                          data['firstName'] + ' ' + data['lastName'],
                           style: GoogleFonts.getFont(
                             'Montserrat',
                             fontSize: 16,
@@ -201,7 +201,7 @@ class _ScreenUsersState extends State<ScreenUsers> {
                                   status: data['status'],
                                   birth: data['birth'],
                                   useId: data['uid'],
-                                    availability: data['availability'],
+                                  availability: data['availability'],
                                 ));
                           },
                           child: Image.asset('assets/logo/img_10.png'),
@@ -243,4 +243,3 @@ class _ScreenUsersState extends State<ScreenUsers> {
 //     print("print  $userId");
 //   }
 // }
-

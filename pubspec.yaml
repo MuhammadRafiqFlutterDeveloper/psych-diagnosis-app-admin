@@ -45,7 +45,6 @@ dependencies:
   intl:
   uuid:
   get:
-  provider:
   mailer:
   pinput:
   auto_size_text:
