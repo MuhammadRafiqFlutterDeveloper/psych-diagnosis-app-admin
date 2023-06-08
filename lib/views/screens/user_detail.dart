@@ -293,13 +293,19 @@ class _UserDetailState extends State<UserDetail> {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'About',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black,),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
               ),
             ),
             Container(
@@ -307,7 +313,11 @@ class _UserDetailState extends State<UserDetail> {
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 widget.about,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: color,),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: color,
+                ),
               ),
             ),
             SizedBox(
@@ -442,7 +452,9 @@ class _UserDetailState extends State<UserDetail> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -456,15 +468,18 @@ class _UserDetailState extends State<UserDetail> {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('disease')
-                    .where('admin', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .where('admin',
+                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                     .snapshots(),
                 builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
                       child: Text("Data doesn't Exist"),
                     );
-                  } else if (snapshot.connectionState == ConnectionState.waiting) {
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
                         color: buttonColor,
@@ -473,34 +488,33 @@ class _UserDetailState extends State<UserDetail> {
                   }
                   return snapshot.data?.size == 0
                       ? Center(
-                    child: Text(
-                      'No data Found',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
+                          child: Text(
+                            'No data Found',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
                       : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data?.docs.length ?? 0,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      final sectionCount = index + 1;
-                      return LayoutPsychHome(
-                        disease: snapshot.data?.docs[index]['disease'],
-                        minimumYes: snapshot.data?.docs[index]['mini'],
-                        diseaseId: snapshot.data?.docs[index]['uid'],
-                        adminId: snapshot.data?.docs[index]['admin'],
-                        sectionCount: sectionCount,
-                      );
-                    },
-                  );
+                          scrollDirection: Axis.vertical,
+                          itemCount: snapshot.data?.docs.length ?? 0,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            final sectionCount = index + 1;
+                            return LayoutPsychHome(
+                              disease: snapshot.data?.docs[index]['disease'],
+                              minimumYes: snapshot.data?.docs[index]['mini'],
+                              diseaseId: snapshot.data?.docs[index]['uid'],
+                              adminId: snapshot.data?.docs[index]['admin'],
+                              sectionCount: sectionCount,
+                            );
+                          },
+                        );
                 },
               ),
             ),
-
           ],
         ),
       ),
